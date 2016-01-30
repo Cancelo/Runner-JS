@@ -51,7 +51,7 @@ function creaObstaculo(nivel) {
 	var rnd = (Math.floor(Math.random() * (100 - 20))) + 20;
 	obstaculo.x = canvas.width + rnd + (-obstaculo.velX);
 	obstaculo.y = canvas.height - rnd;
-	obstaculo.width = ((-1/4)*obstaculo.velX) * rnd;
+	obstaculo.width = ((-1/5)*obstaculo.velX) * rnd;
 	obstaculo.height = 130 - rnd;
 	obstaculo.velX = -5 - (nivel/2);
 
