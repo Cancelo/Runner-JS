@@ -1,0 +1,19 @@
+/* 
+    Created on : 25-ene-2016
+    Author     : Rubén Cancelo Rodríguez
+*/
+@import url(https://fonts.googleapis.com/css?family=Dosis:200);
+
+body {
+	font-family: 'Dosis', sans-serif;
+}
+
+#main {
+	width: 800px;
+	margin: 0 auto;
+}
+
+canvas {
+	border: 1px solid black;
+}
+
