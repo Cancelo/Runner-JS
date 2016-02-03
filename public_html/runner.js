@@ -91,7 +91,6 @@ function bonusPuntuacion() {
 }
 
 function update() {
-
 	if(salud <= 0) {
 		//alert("- GAME OVER -\nTu puntuaciÃ³n: "+puntuacion);
 
@@ -111,7 +110,6 @@ function update() {
 		ctx.fillText("Pulsa F5 para volver a jugar", 320, 245);
 	}
 	else {
-		
 		bonusPuntuacion();
 
 		if(obstaculo.x + obstaculo.width < 0) {
@@ -163,7 +161,7 @@ function update() {
 		ctx.fillText("Salud: "+salud, 5,60);
 		ctx.fillText("y: "+obstaculo.y+" width: "+obstaculo.width+" height: "+obstaculo.height, 5,70);
 
-		requestAnimationFrame(update);
+		requestAnimationFrame(update);	//BUCLE
 	}	
 }
 
