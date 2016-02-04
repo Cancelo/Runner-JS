@@ -25,7 +25,7 @@ var player = {
 	velX: 0,
 	velY: 0,
 	estaSaltando: true,
-	color: "#88ff66"
+	color: "#aa00ff"
 };
 
 var obstaculo = {
@@ -51,7 +51,7 @@ function creaObstaculo(nivel) {
 	var rnd = (Math.floor(Math.random() * (100 - 20))) + 20;
 	obstaculo.x = canvas.width + rnd + (-obstaculo.velX);
 	obstaculo.y = canvas.height - rnd;
-	obstaculo.width = ((-1/5)*obstaculo.velX) * rnd;
+	obstaculo.width = ((-1/4)*obstaculo.velX) * rnd;
 	obstaculo.height = 130 - rnd;
 	obstaculo.velX = -5 - (nivel/2);
 
@@ -77,37 +77,62 @@ function colision() {
 function bonusPuntuacion() {
 	if(keys[32]) {
 		bonus = bonus + 2;
-		player.color = "#FFEB3B";
+		player.color = "#FFEB3B";	
 	}
 	else {
 		bonus = bonus - 1;
 		if(bonus <= 0) {
 			bonus = 0;
 		}
-		player.color = "#88ff66";
+		player.color = "#aa00ff";
 	}
 
 	puntuacion = puntuacion + 1;
 }
 
-function update() {
-	if(salud <= 0) {
-		//alert("- GAME OVER -\nTu puntuaciÃ³n: "+puntuacion);
+function gameOver() {
+	//alert("- GAME OVER -\nTu puntuación: "+puntuacion);
 
 		//ctx.clearRect(0, 0, width, height);
-		ctx.fillStyle = "#9966EE";
+		ctx.fillStyle = "#006064";
 		ctx.fillRect(0,0,width,height);
 		ctx.fillStyle = "white";
-		ctx.font="12px Dosis";
+		ctx.font="15px Dosis";
 		ctx.fillText("Nivel: "+nivel, 5,20);
 		ctx.fillText("Obstaculos: "+c, 60,20);
-		ctx.fillText("Bonus: "+bonus, 140,20);		
-		ctx.fillText("PuntuaciÃ³n: "+puntuacion, width-100, 20);
+		ctx.fillText("Bonus: "+bonus, 145,20);		
+		ctx.fillText("Puntuación: "+puntuacion, width-100, 20);
 
 		ctx.font = "40px Dosis";
 		ctx.fillText("G A M E  O V E R", 280, 205);
 		ctx.font = "15px Dosis";
 		ctx.fillText("Pulsa F5 para volver a jugar", 320, 245);
+}
+
+function particulas() {
+
+	if(keys[32]) {
+		var particulas = {
+		x: player.y,
+		y: player.x - 120,
+		width: 2,
+		height: 2,
+		//velX: 15,
+		//velY: 15
+		};
+		
+		ctx.fillStyle = "#ffeb3b";
+		ctx.fillRect(particulas.x, particulas.y, 5, 5);
+
+		//particulas.x += particulas.velX;
+		//particulas.y += particulas.velY;
+	}
+}
+
+function update() {
+
+	if(salud <= 0) {
+		gameOver();
 	}
 	else {
 		bonusPuntuacion();
@@ -143,25 +168,26 @@ function update() {
 		ctx.clearRect(0, 0, width, height);
 		ctx.fillStyle = player.color;
 		ctx.fillRect(player.x, player.y, player.width, player.height);
-		ctx.fillStyle = "#9966EE";
+		ctx.fillStyle = "#006064";
 		ctx.fillRect(obstaculo.x, obstaculo.y, obstaculo.width, obstaculo.height);
 		ctx.fillRect(0, height-suelo, width, suelo);
 		ctx.fillRect(0, 0, width, 30);
 		ctx.fillStyle = "white";
-		ctx.font="12px Dosis";
+		ctx.font="15px Dosis";
 		ctx.fillText("Nivel: "+nivel, 5,20);
 		ctx.fillText("Obstaculos: "+c, 60,20);
-		ctx.fillText("Bonus: "+bonus, 140,20);
-		ctx.fillText("PuntuaciÃ³n: "+puntuacion, width-100, 20);
+		ctx.fillText("Bonus: "+bonus, 145,20);
+		ctx.fillText("Puntuación: "+puntuacion, width-100, 20);
 
-		//-------------
+		//-----Control--------
 		ctx.fillStyle = "red";
 		ctx.font="10px Courier";
 		ctx.fillText("Velocidad: "+obstaculo.velX, 5,50);		
 		ctx.fillText("Salud: "+salud, 5,60);
-		ctx.fillText("y: "+obstaculo.y+" width: "+obstaculo.width+" height: "+obstaculo.height, 5,70);
+		ctx.fillText("x: "+obstaculo.x+" y: "+obstaculo.y+" width: "+obstaculo.width+" height: "+obstaculo.height, 5,70);
 
-		requestAnimationFrame(update);	//BUCLE
+		requestAnimationFrame(update);
+		requestAnimationFrame(particulas);
 	}	
 }
 
@@ -176,5 +202,3 @@ window.addEventListener("keyup", function(e) {
 window.addEventListener("load", function() {
 	update();
 });
-
-
