@@ -1,4 +1,4 @@
-// BUCLE COMPAT
+// BUCLE
 (function() {
 	var requestAnimationFrame = window.requestAnimation || 
 	window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || 
@@ -25,7 +25,7 @@ var player = {
 	velX: 0,
 	velY: 0,
 	estaSaltando: true,
-	color: "#aa00ff"
+	color: "#FFD600"
 };
 
 var obstaculo = {
@@ -119,6 +119,7 @@ function setPuntuacion(nivel, puntuacion, bonus) {
     document.getElementById("total").innerHTML = bonus+puntuacion;
     
     document.getElementById("player").style.visibility = '';
+    document.getElementById("focus").focus();
 }
 
 function particulas() {
