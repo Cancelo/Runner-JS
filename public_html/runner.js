@@ -1,4 +1,4 @@
-// BUCLE
+// BUCLE COMPAT
 (function() {
 	var requestAnimationFrame = window.requestAnimation || 
 	window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || 
