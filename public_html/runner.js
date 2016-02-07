@@ -77,14 +77,14 @@ function colision() {
 function bonusPuntuacion() {
 	if(keys[32]) {
 		bonus = bonus + 2;
-		player.color = "#FFEB3B";	
+		//player.color = "#FFEB3B";	
 	}
 	else {
 		bonus = bonus - 1;
 		if(bonus <= 0) {
 			bonus = 0;
 		}
-		player.color = "#aa00ff";
+		//player.color = "#aa00ff";
 	}
 
 	puntuacion = puntuacion + 1;
@@ -116,7 +116,7 @@ function particulas() {
 		x: player.y,
 		y: player.x - 120,
 		width: 2,
-		height: 2,
+		height: 2
 		//velX: 15,
 		//velY: 15
 		};
@@ -199,6 +199,4 @@ window.addEventListener("keyup", function(e) {
 	keys[e.keyCode] = false;
 });
 
-window.addEventListener("load", function() {
-	update();
-});
+window.addEventListener("load", update(),true);
