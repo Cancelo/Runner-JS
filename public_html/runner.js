@@ -47,6 +47,9 @@ var c = 1;
 var puntuacion = 0;
 var bonus = 0;
 
+var entornoColor = "#006064";
+var textoColor = "#FFFFFF";
+
 function creaObstaculo(nivel) {
 	var rnd = (Math.floor(Math.random() * (100 - 20))) + 20;
 	obstaculo.x = canvas.width + rnd + (-obstaculo.velX);
@@ -76,7 +79,7 @@ function colision() {
 
 function bonusPuntuacion() {
 	if(keys[32]) {
-		bonus = bonus + 2;
+		bonus = bonus + 1;
 		//player.color = "#FFEB3B";	
 	}
 	else {
@@ -94,9 +97,9 @@ function gameOver() {
 	//alert("- GAME OVER -\nTu puntuación: "+puntuacion);
 
 		//ctx.clearRect(0, 0, width, height);
-		ctx.fillStyle = "#006064";
+		ctx.fillStyle = entornoColor;
 		ctx.fillRect(0,0,width,height);
-		ctx.fillStyle = "white";
+		ctx.fillStyle = textoColor;
 		ctx.font="15px Dosis";
 		ctx.fillText("Nivel: "+nivel, 5,20);
 		ctx.fillText("Obstaculos: "+c, 60,20);
@@ -107,6 +110,15 @@ function gameOver() {
 		ctx.fillText("G A M E  O V E R", 280, 205);
 		ctx.font = "15px Dosis";
 		ctx.fillText("Pulsa F5 para volver a jugar", 320, 245);
+}
+
+function setPuntuacion(nivel, puntuacion, bonus) {
+    document.getElementById("nivel").innerHTML = nivel;
+    document.getElementById("puntuacion").innerHTML = puntuacion;
+    document.getElementById("bonus").innerHTML = bonus;
+    document.getElementById("total").innerHTML = bonus+puntuacion;
+    
+    document.getElementById("player").style.visibility = '';
 }
 
 function particulas() {
@@ -133,6 +145,7 @@ function update() {
 
 	if(salud <= 0) {
 		gameOver();
+                setPuntuacion(nivel, puntuacion, bonus);
 	}
 	else {
 		bonusPuntuacion();
@@ -168,11 +181,11 @@ function update() {
 		ctx.clearRect(0, 0, width, height);
 		ctx.fillStyle = player.color;
 		ctx.fillRect(player.x, player.y, player.width, player.height);
-		ctx.fillStyle = "#006064";
+		ctx.fillStyle = entornoColor;
 		ctx.fillRect(obstaculo.x, obstaculo.y, obstaculo.width, obstaculo.height);
-		ctx.fillRect(0, height-suelo, width, suelo);
-		ctx.fillRect(0, 0, width, 30);
-		ctx.fillStyle = "white";
+		ctx.fillRect(0, height-suelo, width, suelo); // Suelo
+		ctx.fillRect(0, 0, width, 30);  // Techo
+		ctx.fillStyle = textoColor;
 		ctx.font="15px Dosis";
 		ctx.fillText("Nivel: "+nivel, 5,20);
 		ctx.fillText("Obstaculos: "+c, 60,20);

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
     Author: Rubén Cancelo Rodríguez
-    Date: 25/01/2016
-    Web: http://rcancelo.es
+    Created on : 25-ene-2016
+    Web: http://rcancelo.com
 -->
 <html lang="es">
 	<head>
@@ -13,7 +13,49 @@
 	<body>
             <div id="main">
 		<h3>Espacio para saltar</h3>
-		<canvas id="canvas"></canvas>		
+                <canvas id="canvas"></canvas>              
+                <table>
+                    <tr>
+                        <th>Posición</th>
+                        <th>Nombre</th>                        
+                        <th>Nivel</th>
+                        <th>Puntuacion</th>
+                        <th>Bonus</th>                        
+                        <th>Puntacion TOTAL</th>
+                    </tr>
+                    <tr id="player" style='visibility: hidden;'>
+                        <form method="post" action="guardar.php"/>
+                            <input type="text" name="nivel" value="" hidden/>
+                            <input type="number" name="puntuacion" value="" hidden/>
+                            <input type="number" name="bonus" value="" hidden/>
+                            <input type="number" name="total" value="" hidden/>
+                        
+                        <th><input type="submit" value="GUARDAR"/></th>
+                        <th><input type="text" name="nombre"/></th>                        
+                        <th id="nivel"></th>
+                        <th id="puntuacion"></th>
+                        <th id="bonus"></th>                        
+                        <th id="total"></th>
+                        </form>
+                    </tr>
+                    
+                    <tr class="fila1">
+                        <td>1</td>
+                        <td>Rubén</td>                        
+                        <td>21</td>
+                        <td>1200</td>
+                        <td>321</td>
+                        <td>1521</td>
+                    </tr>
+                    <tr class="fila2">
+                        <td>2</td>
+                        <td>Rubén</td>                        
+                        <td>21</td>
+                        <td>1000</td>
+                        <td>151</td>
+                        <td>1151</td>
+                    </tr>                    
+                </table>
             </div>
             <script src="runner.js"></script>
 	</body>

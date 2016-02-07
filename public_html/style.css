@@ -1,8 +1,13 @@
 /* 
-    Created on : 25-ene-2016
     Author     : Rubén Cancelo Rodríguez
+    Created on : 25-ene-2016
+    Web: http://rcancelo.com
 */
 @import url(https://fonts.googleapis.com/css?family=Dosis:200);
+* {
+    margin: 0;
+    padding: 0;
+}
 
 body {
 	font-family: 'Dosis', sans-serif;
@@ -15,5 +20,23 @@ body {
 
 canvas {
 	border: 1px solid black;
+}
+
+#player {
+    width: 800px;
+    background-color: #ffffb3;
+}
+
+table {
+    width: 800px;
+    border: 1px solid darkgray;
+    text-align: center;
+}
+
+table .fila1 {
+    background-color: lightgray;
+}
+
+table .fila2 {
 }
 
