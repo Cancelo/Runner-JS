@@ -78,7 +78,7 @@ function colision() {
 }
 
 function bonusPuntuacion() {
-	if(keys[32]) {
+	if(player.estaSaltando) {
 		bonus = bonus + 1;
 		//player.color = "#FFEB3B";	
 	}
@@ -112,7 +112,24 @@ function gameOver() {
 		ctx.fillText("Pulsa F5 para volver a jugar", 320, 245);
 }
 
+function cambiaColor() {
+
+	if(nivel >= 15) {
+		if(c % 2 == 0) {
+			player.color="#76FF03";
+			entornoColor="#D500F9";
+		}
+		else {
+			player.color="#D500F9";
+			entornoColor="#76FF03";
+		}
+	}
+	
+}
+
 function setPuntuacion(nivel, puntuacion, bonus) {
+	document.formulario.nivel.value = nivel;
+
     document.getElementById("nivel").innerHTML = nivel;
     document.getElementById("puntuacion").innerHTML = puntuacion;
     document.getElementById("bonus").innerHTML = bonus;
@@ -150,6 +167,7 @@ function update() {
 	}
 	else {
 		bonusPuntuacion();
+		cambiaColor();
 
 		if(obstaculo.x + obstaculo.width < 0) {
 			c++;
@@ -192,14 +210,14 @@ function update() {
 		ctx.fillText("Obstaculos: "+c, 60,20);
 		ctx.fillText("Bonus: "+bonus, 145,20);
 		ctx.fillText("Puntuación: "+puntuacion, width-100, 20);
-
+/*
 		//-----Control--------
 		ctx.fillStyle = "red";
 		ctx.font="10px Courier";
 		ctx.fillText("Velocidad: "+obstaculo.velX, 5,50);		
 		ctx.fillText("Salud: "+salud, 5,60);
 		ctx.fillText("x: "+obstaculo.x+" y: "+obstaculo.y+" width: "+obstaculo.width+" height: "+obstaculo.height, 5,70);
-
+*/
 		requestAnimationFrame(update);
 		requestAnimationFrame(particulas);
 	}	
