@@ -21,7 +21,7 @@ var player = {
 	y: height - 100,
 	width: 20,
 	height: 20,
-	salto: 5,
+	salto: 10,
 	velX: 0,
 	velY: 0,
 	estaSaltando: true,
@@ -37,6 +37,7 @@ var obstaculo = {
 };
 
 // ENTORNO
+var gogogo = false;
 var keys = [];
 var gravedad = 0.3;
 var suelo = 3;
@@ -112,9 +113,19 @@ function gameOver() {
 		ctx.fillText("Pulsa F5 para volver a jugar", 320, 245);
 }
 
-function cambiaColor() {
+function inicio() {
+		ctx.fillStyle = entornoColor;
+		ctx.fillRect(0,0,width,height);
+		ctx.fillStyle = textoColor;
 
-	if(nivel >= 15) {
+		ctx.font = "40px Dosis";
+		ctx.fillText("S P A C E  J U M P", 280, 205);
+		ctx.font = "15px Dosis";
+		ctx.fillText("Pulsa ESPACIO para iniciar el jugar", 320, 245);
+}
+
+function cambiaColor() {
+	if(nivel >= 20) {
 		if(c % 2 == 0) {
 			player.color="#76FF03";
 			entornoColor="#D500F9";
@@ -128,19 +139,23 @@ function cambiaColor() {
 }
 
 function setPuntuacion(nivel, puntuacion, bonus) {
-	document.formulario.nivel.value = nivel;
+	var total = bonus+puntuacion;
 
-    document.getElementById("nivel").innerHTML = nivel;
-    document.getElementById("puntuacion").innerHTML = puntuacion;
-    document.getElementById("bonus").innerHTML = bonus;
-    document.getElementById("total").innerHTML = bonus+puntuacion;
+	document.formulario.nivel.value = nivel;
+  	document.formulario.puntuacion.value = puntuacion;
+    	document.formulario.bonus.value = bonus;
+    	document.formulario.total.value = total;
+
+    	document.getElementById("nivel").innerHTML = nivel;
+    	document.getElementById("puntuacion").innerHTML = puntuacion;
+    	document.getElementById("bonus").innerHTML = bonus;
+    	document.getElementById("total").innerHTML = total;
     
-    document.getElementById("player").style.visibility = '';
-    document.getElementById("focus").focus();
+    	document.getElementById("player").style.visibility = '';
+    	document.getElementById("focus").focus();
 }
 
 function particulas() {
-
 	if(keys[32]) {
 		var particulas = {
 		x: player.y,
@@ -160,10 +175,16 @@ function particulas() {
 }
 
 function update() {
+	if(!gogogo) {
+		inicio();
 
-	if(salud <= 0) {
+		if(keys[32]) {
+			gogogo = true;
+		}
+	}
+	else if(salud <= 0) {
 		gameOver();
-                setPuntuacion(nivel, puntuacion, bonus);
+        setPuntuacion(nivel, puntuacion, bonus);
 	}
 	else {
 		bonusPuntuacion();
@@ -178,7 +199,7 @@ function update() {
 		if(keys[32]) {
 			if(!player.estaSaltando) {
 				player.estaSaltando = true;
-				player.velY = -player.salto*2;
+				player.velY = -player.salto;
 			}
 		}
 
@@ -217,10 +238,10 @@ function update() {
 		ctx.fillText("Velocidad: "+obstaculo.velX, 5,50);		
 		ctx.fillText("Salud: "+salud, 5,60);
 		ctx.fillText("x: "+obstaculo.x+" y: "+obstaculo.y+" width: "+obstaculo.width+" height: "+obstaculo.height, 5,70);
-*/
-		requestAnimationFrame(update);
+*/		
 		requestAnimationFrame(particulas);
-	}	
+	}
+	requestAnimationFrame(update);
 }
 
 window.addEventListener("keydown", function(e) {
