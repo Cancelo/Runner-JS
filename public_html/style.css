@@ -4,6 +4,7 @@
     Web: http://rcancelo.com
 */
 @import url(https://fonts.googleapis.com/css?family=Dosis:200);
+
 * {
     margin: 0;
     padding: 0;
@@ -20,6 +21,7 @@ body {
 
 canvas {
 	border: 1px solid black;
+	background-image: url(bg.gif);
 }
 
 #player {
