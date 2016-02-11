@@ -25,7 +25,7 @@ var player = {
 	velX: 0,
 	velY: 0,
 	estaSaltando: true,
-	color: "#FFD600"
+	color: "#7CB342"
 };
 
 var obstaculo = {
@@ -48,7 +48,8 @@ var c = 1;
 var puntuacion = 0;
 var bonus = 0;
 
-var entornoColor = "#006064";
+var entornoColor = "#FF8F00";
+var sombra = "#E65100";
 var textoColor = "#FFFFFF";
 
 function creaObstaculo(nivel) {
@@ -90,93 +91,54 @@ function bonusPuntuacion() {
 		}
 		//player.color = "#aa00ff";
 	}
-
 	puntuacion = puntuacion + 1;
 }
 
-function gameOver() {
-	//alert("- GAME OVER -\nTu puntuación: "+puntuacion);
-
-		//ctx.clearRect(0, 0, width, height);
-		ctx.fillStyle = entornoColor;
-		ctx.fillRect(0,0,width,height);
-		ctx.fillStyle = textoColor;
-		ctx.font="15px Dosis";
-		ctx.fillText("Nivel: "+nivel, 5,20);
-		ctx.fillText("Obstaculos: "+c, 60,20);
-		ctx.fillText("Bonus: "+bonus, 145,20);		
-		ctx.fillText("Puntuación: "+puntuacion, width-100, 20);
-
-		ctx.font = "40px Dosis";
-		ctx.fillText("G A M E  O V E R", 280, 205);
-		ctx.font = "15px Dosis";
-		ctx.fillText("Pulsa F5 para volver a jugar", 320, 245);
-}
-
 function inicio() {
-		ctx.fillStyle = entornoColor;
-		ctx.fillRect(0,0,width,height);
 		ctx.fillStyle = textoColor;
-
 		ctx.font = "40px Dosis";
 		ctx.fillText("S P A C E  J U M P", 280, 205);
 		ctx.font = "15px Dosis";
 		ctx.fillText("Pulsa ESPACIO para iniciar el jugar", 320, 245);
 }
 
-function cambiaColor() {
-	if(nivel >= 20) {
-		if(c % 2 == 0) {
-			player.color="#76FF03";
-			entornoColor="#D500F9";
-		}
-		else {
-			player.color="#D500F9";
-			entornoColor="#76FF03";
-		}
-	}
-	
+function gameOver() {
+		ctx.font = "40px Dosis";
+		ctx.fillText("G A M E  O V E R", 280, 205);
+		ctx.font = "15px Dosis";
+		ctx.fillText("Pulsa F5 para volver a jugar", 320, 245);
 }
 
 function setPuntuacion(nivel, puntuacion, bonus) {
 	var total = bonus+puntuacion;
 
 	document.formulario.nivel.value = nivel;
-  	document.formulario.puntuacion.value = puntuacion;
-    	document.formulario.bonus.value = bonus;
-    	document.formulario.total.value = total;
+    document.formulario.puntuacion.value = puntuacion;
+    document.formulario.bonus.value = bonus;
+    document.formulario.total.value = total;
 
-    	document.getElementById("nivel").innerHTML = nivel;
-    	document.getElementById("puntuacion").innerHTML = puntuacion;
-    	document.getElementById("bonus").innerHTML = bonus;
-    	document.getElementById("total").innerHTML = total;
+    document.getElementById("nivel").innerHTML = nivel;
+    document.getElementById("puntuacion").innerHTML = puntuacion;
+    document.getElementById("bonus").innerHTML = bonus;
+    document.getElementById("total").innerHTML = total;
     
-    	document.getElementById("player").style.visibility = '';
-    	document.getElementById("focus").focus();
+    document.getElementById("player").style.visibility = '';
+    document.getElementById("focus").focus();
 }
 
-function particulas() {
-	if(keys[32]) {
-		var particulas = {
-		x: player.y,
-		y: player.x - 120,
-		width: 2,
-		height: 2
-		//velX: 15,
-		//velY: 15
-		};
-		
-		ctx.fillStyle = "#ffeb3b";
-		ctx.fillRect(particulas.x, particulas.y, 5, 5);
-
-		//particulas.x += particulas.velX;
-		//particulas.y += particulas.velY;
-	}
+function barraPuntuacion() {
+	ctx.fillStyle = textoColor;
+	ctx.font="18px Dosis";
+	ctx.fillText("Obstaculos: "+c, 5, 20);
+	ctx.fillText("Nivel: "+nivel, 5, 40);	
+	ctx.fillText("Bonus: "+bonus, player.x-15, player.y-5);
+	ctx.fillText("Puntuación: "+puntuacion, width-150, 20);
 }
 
 function update() {
+
 	if(!gogogo) {
-		inicio();
+		//inicio();
 
 		if(keys[32]) {
 			gogogo = true;
@@ -188,7 +150,6 @@ function update() {
 	}
 	else {
 		bonusPuntuacion();
-		cambiaColor();
 
 		if(obstaculo.x + obstaculo.width < 0) {
 			c++;
@@ -221,16 +182,19 @@ function update() {
 		ctx.clearRect(0, 0, width, height);
 		ctx.fillStyle = player.color;
 		ctx.fillRect(player.x, player.y, player.width, player.height);
+		ctx.fillStyle = "#1B5E20";
+		ctx.fillRect(player.x, player.y, 5, player.height);
+
 		ctx.fillStyle = entornoColor;
 		ctx.fillRect(obstaculo.x, obstaculo.y, obstaculo.width, obstaculo.height);
+		ctx.fillRect(obstaculo.x, obstaculo.y, 5, obstaculo.height);
 		ctx.fillRect(0, height-suelo, width, suelo); // Suelo
-		ctx.fillRect(0, 0, width, 30);  // Techo
-		ctx.fillStyle = textoColor;
-		ctx.font="15px Dosis";
-		ctx.fillText("Nivel: "+nivel, 5,20);
-		ctx.fillText("Obstaculos: "+c, 60,20);
-		ctx.fillText("Bonus: "+bonus, 145,20);
-		ctx.fillText("Puntuación: "+puntuacion, width-100, 20);
+		//ctx.fillRect(0, 0, width, 30);  // Techo
+		// Sombra
+		ctx.fillStyle = sombra;
+		ctx.fillRect(obstaculo.x, obstaculo.y, 20, obstaculo.height);
+		barraPuntuacion();
+		
 /*
 		//-----Control--------
 		ctx.fillStyle = "red";
@@ -239,7 +203,6 @@ function update() {
 		ctx.fillText("Salud: "+salud, 5,60);
 		ctx.fillText("x: "+obstaculo.x+" y: "+obstaculo.y+" width: "+obstaculo.width+" height: "+obstaculo.height, 5,70);
 */		
-		requestAnimationFrame(particulas);
 	}
 	requestAnimationFrame(update);
 }
